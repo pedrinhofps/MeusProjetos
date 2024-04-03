@@ -2,6 +2,7 @@ saldo = 1500
 limite_saque = 500
 limite_saque_diario = 0
 limite_saque_diario_total = 3
+transacoes = []
 
 while True:
     print(f"""
@@ -24,6 +25,7 @@ Saldo atual: R${saldo:.2f}
             print("Valor insuficiente.")
         else:
             saldo += valor_deposito
+            transacoes.append(("Depósito", valor_deposito))
             print(f"""
 ========= Menu =========
 Valor depositado: R${valor_deposito:.2f}
@@ -42,6 +44,7 @@ Saldo atual: R${saldo:.2f}
         elif valor_saque <= limite_saque and valor_saque <= saldo:
             saldo -= valor_saque
             limite_saque_diario += 1
+            transacoes.append(("Saque", valor_saque))
             print(f"""
 ========= Menu =========
 Valor do saque: R${valor_saque:.2f}
@@ -52,6 +55,9 @@ Saldo atual: R${saldo:.2f}
             print("Valor de saque inválido.")
     elif opcao == 3:
         print("Extrato...")
+        print("=== Extrato ===")
+        for tipo, valor in transacoes:
+            print(f"{tipo}: R${valor:.2f}")
         print(f"Saldo atual: R${saldo:.2f}")
     elif opcao == 4:
         print("Saindo do programa...")
